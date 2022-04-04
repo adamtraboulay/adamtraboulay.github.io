@@ -96,11 +96,11 @@ section .title::after{
     font-weight: 600;
 }
 .navbar .logo a span{
-    color: crimson;
+    color: rgb(255, 0, 0);
     transition: all 0.3s ease;
 }
 .navbar.sticky .logo a span{
-    color: rgb(0, 0, 0);
+    color: rgb(255, 0, 0);
 }
 .navbar .menu li{
     list-style: none;
@@ -122,7 +122,7 @@ section .title::after{
 }
 /* menu btn styling */
 .menu-btn{
-    color: #fff;
+    color: black;
     font-size: 23px;
     cursor: pointer;
     display: none;
@@ -191,7 +191,52 @@ section .title::after{
     color: crimson;
     background: none;
 }
-
+/* projects section styling */
+.projects, .teams{
+    color: black;
+    background: white(0, 0, 0);
+}
+.projects .title::before,
+.teams .title::before{
+    background: white(0, 0, 0);
+}
+.projects .title::after,
+.teams .title::after{
+    background: white(0, 0, 0);
+    content: "what i provide";
+}
+.projects .projects-content .card{
+    width: calc(33% - 20px);
+    background: black(0, 0, 0);
+    text-align: center;
+    border-radius: 6px;
+    padding: 50px 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Ubuntu', sans-serif;
+}
+.projects .projects-content .card:hover{
+    background: crimson;
+}
+.projects .projects-content .card .box{
+    transition: all 0.3s ease;
+}
+.projects .projects-content .card:hover .box{
+    transform: scale(1.05);
+}
+.projects .projects-content .card i{
+    font-size: 50px;
+    color: crimson;
+    transition: color 0.3s ease;
+}
+.projects .projects-content .card:hover i{
+    color: black;
+}
+.projects .projects-content .card .text{
+    font-size: 25px;
+    font-weight: 500;
+    margin: 10px 0 7px 0;
+}
 /* about section styling */
 .about .title::after{
     content: "who i am";
