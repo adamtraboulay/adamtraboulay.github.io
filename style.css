@@ -79,7 +79,8 @@ section .title::after{
     z-index: 999;
     padding: 30px 0;
     font-family: 'Ubuntu', sans-serif;
-    transition: all 0.3s ease;
+    transition: all 0.3s
+    ease;
 }
 .navbar.sticky{
     padding: 15px 0;
@@ -206,6 +207,7 @@ section .title::after{
     content: "what i provide";
 }
 .projects .projects-content .card{
+    position:sticky;
     width: calc(33% - 20px);
     background: black(0, 0, 0);
     text-align: center;
