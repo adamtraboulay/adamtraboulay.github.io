@@ -1,63 +1,135 @@
-const canvas = document.getElementById('particles');
-const ctx = canvas.getContext('2d');
-let W, H, particles = [], mouse = { x: -9999, y: -9999 };
-
-function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-resize();
-window.addEventListener('resize', resize);
-window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
-
-class Particle {
-  constructor() { this.reset(); }
-  reset() {
-    this.x = Math.random() * W; this.y = Math.random() * H;
-    this.vx = (Math.random() - 0.5) * 0.35; this.vy = (Math.random() - 0.5) * 0.35;
-    this.r = Math.random() * 1.5 + 0.5; this.alpha = Math.random() * 0.4 + 0.1;
-    this.color = Math.random() > 0.5 ? '124,106,255' : '56,189,248';
-  }
-  update() {
-    const dx = mouse.x - this.x, dy = mouse.y - this.y;
-    const dist = Math.sqrt(dx * dx + dy * dy);
-    if (dist < 120) { const f = (120 - dist) / 120 * 0.6; this.vx -= dx / dist * f; this.vy -= dy / dist * f; }
-    this.vx *= 0.98; this.vy *= 0.98; this.x += this.vx; this.y += this.vy;
-    if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
-  }
-  draw() {
-    ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(${this.color},${this.alpha})`; ctx.fill();
-  }
-}
-
-const N = Math.min(Math.floor(window.innerWidth / 6), 200);
-for (let i = 0; i < N; i++) particles.push(new Particle());
-
-function drawConnections() {
-  for (let i = 0; i < particles.length; i++) {
-    for (let j = i + 1; j < particles.length; j++) {
-      const dx = particles[i].x - particles[j].x, dy = particles[i].y - particles[j].y;
-      const d = Math.sqrt(dx * dx + dy * dy);
-      if (d < 90) {
-        ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y);
-        ctx.strokeStyle = `rgba(124,106,255,${0.07 * (1 - d / 90)})`; ctx.lineWidth = 0.6; ctx.stroke();
-      }
-    }
-  }
-}
-
-function loop() { ctx.clearRect(0, 0, W, H); drawConnections(); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(loop); }
-loop();
-
-const reveals = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.12 });
-reveals.forEach(el => observer.observe(el));
-
-document.querySelectorAll('.about-stats, .skills-grid, .projects-grid').forEach(grid => {
-  grid.querySelectorAll('.reveal').forEach((child, i) => { child.style.transitionDelay = `${i * 80}ms`; });
+//wait for DOM before touching anything
+window.addEventListener('DOMContentLoaded', () => {
+  const intro = document.getElementById('intro');
+  //give the bar animation time to finish before sliding out (~1.9s)
+  setTimeout(() => {
+    intro.classList.add('hide');
+    //clean up after the CSS transition so it's not sitting in the DOM
+    setTimeout(() => intro.remove(), 900);
+  }, 1900);
 });
 
+//grab cursor elements up front
+const cursor    = document.getElementById('cursor');
+const cursorDot = document.getElementById('cursor-dot');
+let cx = -100, cy = -100; //current interpolated position
+let tx = -100, ty = -100; //raw mouse target
+
+//dot snaps instantly, ring lags behind for a smoother feel
+window.addEventListener('mousemove', e => {
+  tx = e.clientX;
+  ty = e.clientY;
+  cursorDot.style.left = tx + 'px';
+  cursorDot.style.top  = ty + 'px';
+});
+
+function moveCursor() {
+  //lerp the ring toward the mouse each frame
+  cx += (tx - cx) * 0.12;
+  cy += (ty - cy) * 0.12;
+  cursor.style.left = cx + 'px';
+  cursor.style.top  = cy + 'px';
+  requestAnimationFrame(moveCursor);
+}
+moveCursor();
+
+//cards and links each get their own cursor class so we can style them differently
+const hoverEls = document.querySelectorAll('a, button, .nav-links a');
+const cardEls  = document.querySelectorAll('.project-card, .skill-category, .stat-card');
+
+hoverEls.forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+});
+
+cardEls.forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    //make sure hover class doesn't bleed into card state
+    document.body.classList.remove('cursor-hover');
+    document.body.classList.add('cursor-card');
+  });
+  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-card'));
+});
+
+//canvas sits behind everything — just draws the dashed crosshair lines
+const canvas = document.getElementById('particles');
+const ctx    = canvas.getContext('2d');
+let W, H;
+let mouse  = { x: -9999, y: -9999 };
+let target = { x: -9999, y: -9999 };
+
+function resize() {
+  W = canvas.width  = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+window.addEventListener('mousemove', e => {
+  target.x = e.clientX;
+  target.y = e.clientY;
+});
+
+function lerp(a, b, t) { return a + (b - a) * t; }
+
+function drawLoop() {
+  ctx.clearRect(0, 0, W, H);
+
+  //same lerp as the cursor ring so lines stay in sync
+  mouse.x = lerp(mouse.x, target.x, 0.08);
+  mouse.y = lerp(mouse.y, target.y, 0.08);
+
+  //skip drawing until mouse has entered the window
+  if (mouse.x < 0) { requestAnimationFrame(drawLoop); return; }
+
+  ctx.strokeStyle = 'rgba(10,10,10,0.07)';
+  ctx.lineWidth = 1;
+  ctx.setLineDash([5, 10]);
+
+  //horizontal guide line
+  ctx.beginPath();
+  ctx.moveTo(0, mouse.y);
+  ctx.lineTo(W, mouse.y);
+  ctx.stroke();
+
+  //vertical guide line
+  ctx.beginPath();
+  ctx.moveTo(mouse.x, 0);
+  ctx.lineTo(mouse.x, H);
+  ctx.stroke();
+
+  ctx.setLineDash([]);
+  requestAnimationFrame(drawLoop);
+}
+drawLoop();
+
+//stagger children inside grid containers before observing
+document.querySelectorAll('.about-stats, .skills-grid, .projects-grid').forEach(grid => {
+  grid.querySelectorAll('.reveal').forEach((child, i) => {
+    child.style.transitionDelay = `${i * 60}ms`;
+  });
+});
+
+//IntersectionObserver handles all scroll reveals in one place
+const reveals  = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+
+//temporarily style the button on submit, then reset after 3s
 function handleSubmit(e) {
   e.preventDefault();
   const btn = e.target.querySelector('button[type="submit"]');
-  btn.textContent = 'Sent ✓'; btn.style.background = '#22c55e';
-  setTimeout(() => { btn.textContent = 'Send Message'; btn.style.background = ''; e.target.reset(); }, 3000);
+  btn.textContent       = 'Sent ✓';
+  btn.style.background  = '#0a0a0a';
+  btn.style.color       = '#f0ece4';
+  btn.style.borderColor = '#0a0a0a';
+  setTimeout(() => {
+    btn.textContent       = 'Send It →';
+    btn.style.background  = '';
+    btn.style.color       = '';
+    btn.style.borderColor = '';
+    e.target.reset();
+  }, 3000);
 }
