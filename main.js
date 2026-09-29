@@ -117,19 +117,13 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 reveals.forEach(el => observer.observe(el));
 
-//temporarily style the button on submit, then reset after 3s
-function handleSubmit(e) {
-  e.preventDefault();
-  const btn = e.target.querySelector('button[type="submit"]');
-  btn.textContent       = 'Sent ✓';
-  btn.style.background  = '#0a0a0a';
-  btn.style.color       = '#f0ece4';
-  btn.style.borderColor = '#0a0a0a';
-  setTimeout(() => {
-    btn.textContent       = 'Send It →';
-    btn.style.background  = '';
-    btn.style.color       = '';
-    btn.style.borderColor = '';
-    e.target.reset();
-  }, 3000);
-}
+const copyEmail = document.getElementById('copy-email');
+const copyStatus = document.getElementById('copy-status');
+copyEmail.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText('adam@adamtraboulay.tech');
+    copyStatus.textContent = 'Copied to clipboard ✓';
+  } catch {
+    copyStatus.textContent = 'Copy unavailable. You can select the address above.';
+  }
+});
