@@ -1,26 +1,20 @@
 const buddiesRoot = document.getElementById('buddies-root');
-buddiesRoot.innerHTML = `
-<div class="scroll-buddies" aria-hidden="true">
-  <div class="buddy buddy-red">
-    <svg viewBox="0 0 54 70"><path class="buddy-leg buddy-leg-left" d="M18 54v10"/><path class="buddy-leg buddy-leg-right" d="M37 54v10"/><path class="buddy-arm buddy-arm-left" d="M9 35 3 31"/><path class="buddy-arm buddy-arm-right" d="M51 35 45 39"/><path class="buddy-body" d="M27 8c14 0 22 11 22 25v10c0 11-10 17-22 17S5 54 5 43V33C5 19 13 8 27 8Z"/><path d="M18 9 15 3m22 6 3-6"/><g class="buddy-eyes"><circle cx="20" cy="32" r="2.5"/><circle cx="34" cy="32" r="2.5"/></g><path class="buddy-mouth" d="M23 42q4 4 8 0"/></svg>
-  </div>
-  <div class="buddy buddy-cream">
-    <svg viewBox="0 0 54 70"><path class="buddy-leg buddy-leg-left" d="M17 56v9"/><path class="buddy-leg buddy-leg-right" d="M38 56v9"/><path class="buddy-arm buddy-arm-left" d="M7 38 2 34"/><path class="buddy-arm buddy-arm-right" d="M52 38 47 34"/><path class="buddy-body" d="M9 11 20 18 27 11l7 7 11-7v38c0 7-7 12-18 12S9 56 9 49V11Z"/><g class="buddy-eyes"><circle cx="20" cy="35" r="2.5"/><circle cx="34" cy="35" r="2.5"/></g><path class="buddy-mouth" d="M24 45h6"/></svg>
-  </div>
-  <div class="buddy buddy-blue">
-    <svg viewBox="0 0 54 70"><path class="buddy-leg buddy-leg-left" d="M17 55v10"/><path class="buddy-leg buddy-leg-right" d="M37 55v10"/><path class="buddy-arm buddy-arm-left" d="M9 39 3 43"/><path class="buddy-arm buddy-arm-right" d="M51 39 45 34"/><path class="buddy-body" d="M27 7c12 0 19 8 19 22v18c0 9-7 14-19 14S8 56 8 47V29C8 15 15 7 27 7Z"/><path d="M21 8V3m12 5V3"/><g class="buddy-eyes"><circle cx="20" cy="34" r="2.5"/><circle cx="34" cy="34" r="2.5"/></g><path class="buddy-mouth" d="M23 44q4-3 8 0"/></svg>
-  </div>
-  <div class="buddy buddy-gold">
-    <svg viewBox="0 0 54 70"><path class="buddy-leg buddy-leg-left" d="M17 54v11"/><path class="buddy-leg buddy-leg-right" d="M37 54v11"/><path class="buddy-arm buddy-arm-left" d="M8 36 2 31"/><path class="buddy-arm buddy-arm-right" d="M52 36 46 41"/><path class="buddy-body" d="M27 3 33 12 43 9l-1 11 9 8-7 9 3 12-12 1-8 10-8-10-12-1 3-12-7-9 9-8-1-11 10 3 6-9Z"/><g class="buddy-eyes"><circle cx="20" cy="32" r="2.5"/><circle cx="34" cy="32" r="2.5"/></g><path class="buddy-mouth" d="M22 41q5 6 10 0"/></svg>
-  </div>
-</div>
-`;
+const buddyArtwork = color => `<svg viewBox="20 12 85 84" aria-hidden="true">
+  <defs><mask id="buddy-mouth-${color}" maskUnits="userSpaceOnUse" x="20" y="12" width="85" height="84" style="mask-type:luminance"><rect x="20" y="12" width="85" height="84" fill="#fff"/><rect x="30" y="52" width="64" height="9" fill="#000"/></mask></defs>
+  <path class="buddy-leg buddy-leg-left" d="M51 77v10"/>
+  <path class="buddy-leg buddy-leg-right" d="M75 77v10"/>
+  <path class="buddy-arm buddy-arm-left" d="M34 49 24 57"/>
+  <path class="buddy-arm buddy-arm-right" d="M90 49 100 57"/>
+  <path class="buddy-body" d="M32 51C34 33 46 21 62 21s28 12 30 30c0 19-12 30-30 30S32 70 32 51Z" mask="url(#buddy-mouth-${color})"/>
+  <g class="buddy-eyes"><circle cx="48" cy="38" r="5"/><circle cx="75" cy="38" r="5"/></g>
+</svg>`;
+buddiesRoot.innerHTML = `<div class="scroll-buddies" aria-hidden="true">${['green', 'red', 'blue', 'gold'].map(color => `<div class="buddy buddy-${color}">${buddyArtwork(color)}</div>`).join('')}</div>`;
 const buddies = [...document.querySelectorAll('.buddy')];
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const crew = document.querySelector('.scroll-buddies');
 const preferredDocks = ['bottom-left', 'top-left', 'top-right', 'bottom-right'];
 let dockFrame = 0;
-const walkDuration = 1400;
+const walkDuration = 2400;
 const walkTimers = new WeakMap();
 const lastDocks = new WeakMap();
 let hasPlacedBuddies = false;
