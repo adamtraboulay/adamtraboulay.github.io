@@ -1,4 +1,3 @@
-/* The four scrolling companions live here with their artwork and motion. */
 .scroll-buddies { position: fixed; inset: 0; z-index: 200; pointer-events: none; }
 .buddy { --size-scale: 1; position: absolute; left: calc(100vw - 240px); top: calc(100vh - 86px); width: 53px; height: 70px; filter: drop-shadow(0 5px 0 rgba(10,10,10,.15)); transform: scale(var(--size-scale)); transform-origin: left top; transition: left 1.4s cubic-bezier(.3,.65,.35,1), top 1.4s cubic-bezier(.3,.65,.35,1), opacity .2s; }
 .buddy.is-muted { opacity: .72; }

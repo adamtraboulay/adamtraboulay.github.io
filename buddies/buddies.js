@@ -1,4 +1,3 @@
-// Self-contained character artwork and scroll behavior.
 const buddiesRoot = document.getElementById('buddies-root');
 buddiesRoot.innerHTML = `
 <div class="scroll-buddies" aria-hidden="true">
@@ -16,8 +15,6 @@ buddiesRoot.innerHTML = `
   </div>
 </div>
 `;
-
-// The four companions gather at the start, then find their own clear spots as you scroll.
 const buddies = [...document.querySelectorAll('.buddy')];
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const crew = document.querySelector('.scroll-buddies');
@@ -27,12 +24,10 @@ const walkDuration = 1400;
 const walkTimers = new WeakMap();
 const lastDocks = new WeakMap();
 let hasPlacedBuddies = false;
-
 function overlapArea(a, b) {
   return Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left)) *
     Math.max(0, Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top));
 }
-
 function placeBuddies() {
   dockFrame = 0;
   const mobile = innerWidth < 600;
@@ -45,7 +40,6 @@ function placeBuddies() {
   const gathered = window.scrollY < 8;
   const totalWidth = buddies.reduce((sum, buddy) => sum + buddy.offsetWidth * scale, 0) + 3 * (mobile ? 0 : 3);
   let nextGroupX = innerWidth - edge - totalWidth;
-
   buddies.forEach((buddy, index) => {
     const width = buddy.offsetWidth * scale;
     const height = buddy.offsetHeight * scale;
@@ -105,10 +99,7 @@ function scheduleBuddyPlacement() {
 }
 window.addEventListener('resize', scheduleBuddyPlacement);
 scheduleBuddyPlacement();
-
 window.addEventListener('scroll', scheduleBuddyPlacement, { passive: true });
-
-// Their eyes follow the pointer slightly, without intercepting clicks.
 window.addEventListener('pointermove', event => {
   if (reduceMotion.matches || event.pointerType !== 'mouse') return;
   const x = ((event.clientX / window.innerWidth) - .5) * 4;
