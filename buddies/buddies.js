@@ -3,16 +3,16 @@ const buddiesRoot = document.getElementById('buddies-root');
 buddiesRoot.innerHTML = `
 <div class="scroll-buddies" aria-hidden="true">
   <div class="buddy buddy-red">
-    <svg viewBox="0 0 54 70"><path class="buddy-leg" d="M18 54v10m19-10v10"/><path class="buddy-arm" d="M9 35 3 31m48 4-6 4"/><path class="buddy-body" d="M27 8c14 0 22 11 22 25v10c0 11-10 17-22 17S5 54 5 43V33C5 19 13 8 27 8Z"/><path d="M18 9 15 3m22 6 3-6"/><g class="buddy-eyes"><circle cx="20" cy="32" r="2.5"/><circle cx="34" cy="32" r="2.5"/></g><path class="buddy-mouth" d="M23 42q4 4 8 0"/></svg>
+    <svg viewBox="0 0 54 70"><path class="buddy-leg buddy-leg-left" d="M18 54v10"/><path class="buddy-leg buddy-leg-right" d="M37 54v10"/><path class="buddy-arm buddy-arm-left" d="M9 35 3 31"/><path class="buddy-arm buddy-arm-right" d="M51 35 45 39"/><path class="buddy-body" d="M27 8c14 0 22 11 22 25v10c0 11-10 17-22 17S5 54 5 43V33C5 19 13 8 27 8Z"/><path d="M18 9 15 3m22 6 3-6"/><g class="buddy-eyes"><circle cx="20" cy="32" r="2.5"/><circle cx="34" cy="32" r="2.5"/></g><path class="buddy-mouth" d="M23 42q4 4 8 0"/></svg>
   </div>
   <div class="buddy buddy-cream">
-    <svg viewBox="0 0 54 70"><path class="buddy-leg" d="M17 56v9m21-9v9"/><path class="buddy-arm" d="M7 38 2 34m50 4-5-4"/><path class="buddy-body" d="M9 11 20 18 27 11l7 7 11-7v38c0 7-7 12-18 12S9 56 9 49V11Z"/><g class="buddy-eyes"><circle cx="20" cy="35" r="2.5"/><circle cx="34" cy="35" r="2.5"/></g><path class="buddy-mouth" d="M24 45h6"/></svg>
+    <svg viewBox="0 0 54 70"><path class="buddy-leg buddy-leg-left" d="M17 56v9"/><path class="buddy-leg buddy-leg-right" d="M38 56v9"/><path class="buddy-arm buddy-arm-left" d="M7 38 2 34"/><path class="buddy-arm buddy-arm-right" d="M52 38 47 34"/><path class="buddy-body" d="M9 11 20 18 27 11l7 7 11-7v38c0 7-7 12-18 12S9 56 9 49V11Z"/><g class="buddy-eyes"><circle cx="20" cy="35" r="2.5"/><circle cx="34" cy="35" r="2.5"/></g><path class="buddy-mouth" d="M24 45h6"/></svg>
   </div>
   <div class="buddy buddy-blue">
-    <svg viewBox="0 0 54 70"><path class="buddy-leg" d="M17 55v10m20-10v10"/><path class="buddy-arm" d="M9 39 3 43m48-4-6-5"/><path class="buddy-body" d="M27 7c12 0 19 8 19 22v18c0 9-7 14-19 14S8 56 8 47V29C8 15 15 7 27 7Z"/><path d="M21 8V3m12 5V3"/><g class="buddy-eyes"><circle cx="20" cy="34" r="2.5"/><circle cx="34" cy="34" r="2.5"/></g><path class="buddy-mouth" d="M23 44q4-3 8 0"/></svg>
+    <svg viewBox="0 0 54 70"><path class="buddy-leg buddy-leg-left" d="M17 55v10"/><path class="buddy-leg buddy-leg-right" d="M37 55v10"/><path class="buddy-arm buddy-arm-left" d="M9 39 3 43"/><path class="buddy-arm buddy-arm-right" d="M51 39 45 34"/><path class="buddy-body" d="M27 7c12 0 19 8 19 22v18c0 9-7 14-19 14S8 56 8 47V29C8 15 15 7 27 7Z"/><path d="M21 8V3m12 5V3"/><g class="buddy-eyes"><circle cx="20" cy="34" r="2.5"/><circle cx="34" cy="34" r="2.5"/></g><path class="buddy-mouth" d="M23 44q4-3 8 0"/></svg>
   </div>
   <div class="buddy buddy-gold">
-    <svg viewBox="0 0 54 70"><path class="buddy-leg" d="M17 54v11m20-11v11"/><path class="buddy-arm" d="M8 36 2 31m50 5-6 5"/><path class="buddy-body" d="M27 3 33 12 43 9l-1 11 9 8-7 9 3 12-12 1-8 10-8-10-12-1 3-12-7-9 9-8-1-11 10 3 6-9Z"/><g class="buddy-eyes"><circle cx="20" cy="32" r="2.5"/><circle cx="34" cy="32" r="2.5"/></g><path class="buddy-mouth" d="M22 41q5 6 10 0"/></svg>
+    <svg viewBox="0 0 54 70"><path class="buddy-leg buddy-leg-left" d="M17 54v11"/><path class="buddy-leg buddy-leg-right" d="M37 54v11"/><path class="buddy-arm buddy-arm-left" d="M8 36 2 31"/><path class="buddy-arm buddy-arm-right" d="M52 36 46 41"/><path class="buddy-body" d="M27 3 33 12 43 9l-1 11 9 8-7 9 3 12-12 1-8 10-8-10-12-1 3-12-7-9 9-8-1-11 10 3 6-9Z"/><g class="buddy-eyes"><circle cx="20" cy="32" r="2.5"/><circle cx="34" cy="32" r="2.5"/></g><path class="buddy-mouth" d="M22 41q5 6 10 0"/></svg>
   </div>
 </div>
 `;
@@ -23,6 +23,10 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const crew = document.querySelector('.scroll-buddies');
 const preferredDocks = ['bottom-left', 'top-left', 'top-right', 'bottom-right'];
 let dockFrame = 0;
+const walkDuration = 1400;
+const walkTimers = new WeakMap();
+const lastDocks = new WeakMap();
+let hasPlacedBuddies = false;
 
 function overlapArea(a, b) {
   return Math.max(0, Math.min(a.right, b.right) - Math.max(a.left, b.left)) *
@@ -72,18 +76,29 @@ function placeBuddies() {
           (element.matches('a, button, input, textarea, .tag') ? 5 : element.matches('footer') ? 2 : 1.5), 0);
         const friends = taken.reduce((sum, other) => sum + overlapArea(box, other) * 12, 0);
         const preference = choice.name === preferredDocks[index] ? 0 : 350;
-        return content + friends + preference;
+        const switchCost = lastDocks.has(buddy) && lastDocks.get(buddy) !== choice.name ? 2200 : 0;
+        return content + friends + preference + switchCost;
       };
       spot = choices.reduce((best, choice) => cost(choice) < cost(best) ? choice : best);
       const box = { left: spot.x, top: spot.y, right: spot.x + width, bottom: spot.y + height };
       taken.push(box);
       buddy.classList.toggle('is-muted', cost(spot) > width * height * 1.5);
     }
+    lastDocks.set(buddy, spot.name);
     if (gathered) buddy.classList.remove('is-muted');
-    buddy.style.left = `${spot.x}px`;
-    buddy.style.top = `${spot.y}px`;
+    const nextLeft = `${spot.x}px`;
+    const nextTop = `${spot.y}px`;
+    if (hasPlacedBuddies && !reduceMotion.matches &&
+        (buddy.style.left !== nextLeft || buddy.style.top !== nextTop)) {
+      buddy.classList.add('is-walking');
+      clearTimeout(walkTimers.get(buddy));
+      walkTimers.set(buddy, setTimeout(() => buddy.classList.remove('is-walking'), walkDuration));
+    }
+    buddy.style.left = nextLeft;
+    buddy.style.top = nextTop;
   });
   crew.classList.toggle('is-split', !gathered);
+  hasPlacedBuddies = true;
 }
 function scheduleBuddyPlacement() {
   if (!dockFrame) dockFrame = requestAnimationFrame(placeBuddies);
@@ -91,26 +106,7 @@ function scheduleBuddyPlacement() {
 window.addEventListener('resize', scheduleBuddyPlacement);
 scheduleBuddyPlacement();
 
-let lastScroll = window.scrollY;
-let settleBuddies;
-window.addEventListener('scroll', () => {
-  const delta = window.scrollY - lastScroll;
-  lastScroll = window.scrollY;
-  scheduleBuddyPlacement();
-  if (reduceMotion.matches || !delta) return;
-  const lean = Math.max(-9, Math.min(9, delta * .24));
-  buddies.forEach((buddy, index) => {
-    buddy.style.setProperty('--lean', `${lean * (index % 2 ? -1 : 1)}deg`);
-    buddy.style.setProperty('--hop', `${-4 - index * 2}px`);
-  });
-  clearTimeout(settleBuddies);
-  settleBuddies = setTimeout(() => {
-    buddies.forEach(buddy => {
-      buddy.style.setProperty('--lean', '0deg');
-      buddy.style.setProperty('--hop', '0px');
-    });
-  }, 140);
-}, { passive: true });
+window.addEventListener('scroll', scheduleBuddyPlacement, { passive: true });
 
 // Their eyes follow the pointer slightly, without intercepting clicks.
 window.addEventListener('pointermove', event => {
@@ -120,4 +116,3 @@ window.addEventListener('pointermove', event => {
   document.querySelector('.scroll-buddies').style.setProperty('--look-x', `${x.toFixed(1)}px`);
   document.querySelector('.scroll-buddies').style.setProperty('--look-y', `${y.toFixed(1)}px`);
 }, { passive: true });
-
