@@ -233,6 +233,7 @@ section {
   animation: fadeIn 0.5s 0.45s forwards;
 }
 .hero-sub {
+  font-family: 'JetBrains Mono', monospace;
   font-size: 0.95rem;
   color: var(--muted);
   max-width: 380px;
