@@ -74,7 +74,7 @@ function drawLoop() {
 drawLoop();
 document.querySelectorAll('.about-stats, .skills-grid, .projects-grid').forEach(grid => {
   grid.querySelectorAll('.reveal').forEach((child, i) => {
-    child.style.transitionDelay = `${i * 60}ms`;
+    child.style.transitionDelay = `${100 + i * 80}ms`;
   });
 });
 const reveals  = document.querySelectorAll('.reveal');
@@ -82,13 +82,3 @@ const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.1 });
 reveals.forEach(el => observer.observe(el));
-const copyEmail = document.getElementById('copy-email');
-const copyStatus = document.getElementById('copy-status');
-copyEmail.addEventListener('click', async () => {
-  try {
-    await navigator.clipboard.writeText('adam@adamtraboulay.tech');
-    copyStatus.textContent = 'Copied to clipboard ✓';
-  } catch {
-    copyStatus.textContent = 'Copy unavailable. You can select the address above.';
-  }
-});

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Adam Traboulay</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=2" />
+  <link rel="stylesheet" href="styles.css?v=8" />
   <link rel="stylesheet" href="buddies/buddies.css?v=6" />
 </head>
 <body>
@@ -41,7 +41,7 @@
   <div class="hero-bottom">
     <p class="hero-sub">
       // Data Science & AI student. <br />
-      // I ship projects that make data digestable.
+      <span class="hero-line">// I ship projects that make data digestable.</span>
     </p>
   </div>
 
@@ -167,17 +167,20 @@
 </section>
 
 <section id="contact" aria-labelledby="contact-title">
-  <div class="contact-topline"><span>04 / CONTACT</span><span>HAVE SOMETHING IN MIND?</span></div>
-  <div class="contact-layout">
-    <div class="contact-heading">
-      <h2 id="contact-title">Let's <span>talk.</span></h2>
-      <p>Questions, ideas, collaborations—or just a hello. I'd love to hear from you.</p>
+  <div class="contact-inner">
+    <div class="contact-topline reveal"><span>04 / CONTACT</span><span>YOU MADE IT TO THE END</span></div>
+    <div class="contact-stage reveal">
+      <div class="contact-message">
+        <h2 id="contact-title">Your<br /><span>turn.</span></h2>
+        <p>Need a project done? Give me a message</p>
+      </div>
+      <a class="contact-cta" href="mailto:adamtraboulay@gmail.com">
+        <span>Say hello</span><span aria-hidden="true">↗</span>
+      </a>
     </div>
-    <div class="contact-links">
-      <a class="contact-email" href="mailto:adamtraboulay@gmail.com"><span><small>THE DIRECT LINE</small><strong>adamtraboulay@gmail.com</strong></span><span class="contact-arrow" aria-hidden="true">↗</span></a>
-      <button id="copy-email" class="contact-copy" type="button">Copy email address <span aria-hidden="true">⧉</span></button>
-      <span id="copy-status" role="status" aria-live="polite"></span>
-      <div class="contact-socials"><a href="https://github.com/adamtraboulay" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a><a href="https://linkedin.com/in/adamtraboulay" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a></div>
+    <div class="contact-bottom reveal">
+      <a class="contact-address" href="mailto:adamtraboulay@gmail.com">adamtraboulay@gmail.com</a>
+      <div class="contact-socials"><a href="https://github.com/adamtraboulay" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://linkedin.com/in/adamtraboulay" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></div>
     </div>
   </div>
 </section>
@@ -187,7 +190,7 @@
   <span style="color:var(--muted)">© 2026</span>
 </footer>
 
-<script src="main.js"></script>
+<script src="main.js?v=3"></script>
 <script src="buddies/buddies.js?v=6"></script>
 </body>
 </html>
