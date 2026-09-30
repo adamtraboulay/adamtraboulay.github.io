@@ -1,6 +1,7 @@
 .scroll-buddies { position: fixed; inset: 0; z-index: 200; pointer-events: none; }
 .buddy { --size-scale: 1; --step-duration: .9s; position: absolute; left: calc(100vw - 240px); top: calc(100vh - 86px); width: 68px; height: 70px; filter: drop-shadow(0 5px 0 rgba(10,10,10,.15)); transform: scale(var(--size-scale)); transform-origin: left top; transition: left 2.4s cubic-bezier(.3,.65,.35,1), top 2.4s cubic-bezier(.3,.65,.35,1), opacity .2s; }
 .buddy.is-muted { opacity: .72; }
+.buddy.is-docked { transition: none; }
 .buddy svg { display: block; width: 100%; height: 100%; overflow: visible; animation: buddy-breathe 2.4s ease-in-out infinite; }
 .buddy:nth-child(2) svg { animation-delay: -.7s; }
 .buddy:nth-child(3) svg { animation-delay: -1.3s; }

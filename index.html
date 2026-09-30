@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css?v=8" />
   <link rel="stylesheet" href="buddies/buddies.css?v=6" />
+  <link rel="stylesheet" href="buddies/data-story.css?v=4" />
 </head>
 <body>
 <a class="skip-link" href="#about">Skip to content</a>
@@ -132,34 +133,60 @@
     <span class="section-num">03</span>
     <h2 class="section-title">Projects</h2>
   </div>
+  <article id="data-story" class="featured-project reveal" aria-labelledby="data-story-title">
+    <div class="featured-project-intro">
+      <div class="featured-project-overline">001 / FEATURED PROJECT</div>
+      <h3 id="data-story-title">Student Performance<br /><span>Predictor.</span></h3>
+      <p>Can you predict a final grade from a student's habits? My project tests that question twice: once without earlier grades, then with them.</p>
+      <a class="featured-project-link" href="https://github.com/adamtraboulay/Student-Performance-Predictor" target="_blank" rel="noopener noreferrer">Explore the project <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="featured-project-story">
+      <div class="featured-project-buddies" role="group" aria-label="Explore the project story">
+        <button class="featured-buddy buddy-green" type="button" data-step="0" aria-pressed="true"><span class="featured-buddy-art" aria-hidden="true"></span><span>THE DATA</span></button>
+        <button class="featured-buddy buddy-red" type="button" data-step="1" aria-pressed="false"><span class="featured-buddy-art" aria-hidden="true"></span><span>HABITS</span></button>
+        <button class="featured-buddy buddy-blue" type="button" data-step="2" aria-pressed="false"><span class="featured-buddy-art" aria-hidden="true"></span><span>GRADES</span></button>
+        <button class="featured-buddy buddy-gold" type="button" data-step="3" aria-pressed="false"><span class="featured-buddy-art" aria-hidden="true"></span><span>THE POINT</span></button>
+      </div>
+      <div class="featured-project-panel">
+        <div class="featured-panel-top"><span id="story-step">01 / THE DATA</span><span>FINAL GRADE / 20</span></div>
+        <p id="story-message" class="featured-panel-message" aria-live="polite">395 student records. The question: how much can we learn about a final grade before seeing any earlier grades?</p>
+        <div class="featured-chart" role="img" aria-label="Cross-validated R-squared: about 0.28 using habits and background, about 0.86 when earlier grades are also included.">
+          <div class="featured-chart-row" data-bar="habits"><span>HABITS + BACKGROUND</span><div class="featured-chart-track"><i style="--bar-width:28%"></i></div><strong>~0.28</strong></div>
+          <div class="featured-chart-row" data-bar="grades"><span>+ EARLIER GRADES</span><div class="featured-chart-track"><i style="--bar-width:86%"></i></div><strong>~0.86</strong></div>
+          <div class="featured-chart-axis"><span>0</span><span>R² / PREDICTIVE FIT</span><span>1</span></div>
+        </div>
+        <p class="featured-project-note">Approximate 5-fold cross-validation results from the <a href="https://github.com/adamtraboulay/Student-Performance-Predictor" target="_blank" rel="noopener noreferrer">project README ↗</a>. A higher R² means a better fit.</p>
+      </div>
+    </div>
+  </article>
   <div class="projects-grid">
     <div class="project-card project-card--placeholder reveal">
-      <div class="project-number">001</div>
+      <div class="project-number">002</div>
       <div class="project-placeholder-label">Coming Soon</div>
       <div class="project-desc">Something's brewing. Check back soon.</div>
     </div>
     <div class="project-card project-card--placeholder reveal">
-      <div class="project-number">002</div>
+      <div class="project-number">003</div>
       <div class="project-placeholder-label">Coming Soon</div>
       <div class="project-desc">Currently in the works. Stay tuned.</div>
     </div>
     <div class="project-card project-card--placeholder reveal">
-      <div class="project-number">003</div>
+      <div class="project-number">004</div>
       <div class="project-placeholder-label">Coming Soon</div>
       <div class="project-desc">Ideas in progress. Won't be long.</div>
     </div>
     <div class="project-card project-card--placeholder reveal">
-      <div class="project-number">004</div>
+      <div class="project-number">005</div>
       <div class="project-placeholder-label">Coming Soon</div>
       <div class="project-desc">Building. Will be worth the wait.</div>
     </div>
     <div class="project-card project-card--placeholder reveal">
-      <div class="project-number">005</div>
+      <div class="project-number">006</div>
       <div class="project-placeholder-label">Coming Soon</div>
       <div class="project-desc">In the lab. More details soon.</div>
     </div>
     <div class="project-card project-card--placeholder reveal">
-      <div class="project-number">006</div>
+      <div class="project-number">007</div>
       <div class="project-placeholder-label">Coming Soon</div>
       <div class="project-desc">Cooking something up. Watch this space.</div>
     </div>
@@ -191,6 +218,7 @@
 </footer>
 
 <script src="main.js?v=3"></script>
-<script src="buddies/buddies.js?v=6"></script>
+<script src="buddies/buddies.js?v=11"></script>
+<script src="buddies/data-story.js?v=4"></script>
 </body>
 </html>
